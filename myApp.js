@@ -12,6 +12,7 @@ const createAndSavePerson = (done) => {
   });
 };
 
+/** 4) Create Many Records with model.create() */
 const createManyPeople = (arrayOfPeople, done) => {
   Person.create(arrayOfPeople, function(err, people){
     if (err) return console.log(err);
@@ -19,8 +20,13 @@ const createManyPeople = (arrayOfPeople, done) => {
   });
 };
 
+/** 5) Use `Model.find()` */
 const findPeopleByName = (personName, done) => {
-  done(null /*, data*/);
+  Person.find({name: personName}, function (err, personFound) {
+    if (err) return console.log(err);
+    done(null, personFound);
+    // done(null /*, data*/);
+  });
 };
 
 const findOneByFood = (food, done) => {
@@ -77,8 +83,6 @@ let miranda = new Person({
   age: 2,
   favoriteFoods: ["pizza", "nada"]
 });
-
-/** 4) Create Many Records with model.create() */
 
 
 /** **Well Done !!**
