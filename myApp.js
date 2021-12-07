@@ -1,14 +1,22 @@
 require('dotenv').config();
 
 
-let Person;
-
 const createAndSavePerson = (done) => {
-  done(null /*, data*/);
+  var janeFonda = new Person({ 
+    name: "Miranda", 
+    age: 1, 
+    favoriteFoods: ["eggs", "fish", "fresh fruit"] });
+  janeFonda.save(function(err, data) {
+    if (err) return console.error(err);
+    done(null, data)
+  });
 };
 
 const createManyPeople = (arrayOfPeople, done) => {
-  done(null /*, data*/);
+  Person.create(arrayOfPeople, function(err, people){
+    if (err) return console.log(err);
+    done(null, people);
+  });
 };
 
 const findPeopleByName = (personName, done) => {
@@ -53,6 +61,7 @@ const queryChain = (done) => {
 
 const mongoose = require('mongoose');
 mongoose.connect(process.env.MONGO_URI, {useNewUrlParser: true, useUnifiedTopology: true});
+const Schema = mongoose.Schema;
 
 
 // // My Code here   
@@ -63,6 +72,13 @@ const personSchema  = new Schema({
 });
 
 let Person = mongoose.model("Person", personSchema);
+let miranda = new Person({
+  name: "miranda",
+  age: 2,
+  favoriteFoods: ["pizza", "nada"]
+});
+
+/** 4) Create Many Records with model.create() */
 
 
 /** **Well Done !!**
